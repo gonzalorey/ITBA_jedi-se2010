@@ -16,6 +16,7 @@ import api.ButtonListenerInterface;
 import api.ConnectionListenerInterface;
 import api.JEDI_api;
 import api.impl.JEDI;
+import api.impl.JEDI.JoystickNumbers;
 import client.game.Board;
 import client.game.fakejedi.Fakejedi;
 
@@ -36,7 +37,7 @@ public class Console implements ButtonListenerInterface, ConnectionListenerInter
 		try{
 			
 			// initialize the JEDI
-			jedi = new JEDI(101, SERVER_ID, "COM7", this, this);
+			jedi = new JEDI(101, JoystickNumbers.JEDI_ONE, SERVER_ID, "COM7", this, this);
 			((JEDI)jedi).start();
 			
 			// initialize the fake JEDI

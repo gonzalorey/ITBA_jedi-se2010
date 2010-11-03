@@ -155,7 +155,7 @@ public class SerialCommHandler implements CommHandler {
 			fireConnectionStartedEvent();
 		}
 		
-		DiscoverRespPacket respPck = new DiscoverRespPacket(jedi.getServerID(), reqPck.getOrig(), 2, acc_method.ACC_METHOD_MEDIAN,(byte) 0xFF);
+		DiscoverRespPacket respPck = new DiscoverRespPacket(jedi.getServerID(), reqPck.getOrig(), jedi.getJoystickNumberAsInt(), acc_method.ACC_METHOD_MEDIAN,(byte) 0xFF);
 		
 		try {
 			outputStream.write(respPck.serialize());
