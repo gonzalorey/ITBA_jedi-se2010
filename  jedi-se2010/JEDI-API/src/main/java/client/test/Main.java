@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.TooManyListenersException;
 
 import api.impl.JEDI;
+import api.impl.JEDI.JoystickNumbers;
 
 
 public class Main {
@@ -29,7 +30,7 @@ public class Main {
 		ButtonEventListener buttonEventListener = new ButtonEventListener();
 		ConnectionEventListener connectionEventListener = new ConnectionEventListener();
 		
-		JEDI jedi = new JEDI(1, 11, "COM3", buttonEventListener, connectionEventListener);
+		JEDI jedi = new JEDI(1, JoystickNumbers.JEDI_ONE,11, "COM3", buttonEventListener, connectionEventListener);
 		jedi.start();
 	
 		while(true){

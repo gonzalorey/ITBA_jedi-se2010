@@ -32,7 +32,8 @@ public class JEDI implements JEDI_api{
 	private int jediID;
 	
 	// josyick number, 1 or 2
-	private int joystickNumber;
+	public static enum JoystickNumbers{JEDI_ONE, JEDI_TWO};
+	private JoystickNumbers joystickNumber;
 	
 	// server id 
 	private int serverID = 11;
@@ -66,6 +67,7 @@ public class JEDI implements JEDI_api{
 	/**
 	 * JEDI controller object
 	 * @param jediID ID of the JEDI controller to connect to
+	 * @param joystickNumber Number of the joystick to handle, either JEDI_ONE or JEDI_TWO
 	 * @param serverID ID of the server that communicates to the JEDI
 	 * @param portName Name of the port where the JEDI is connected
 	 * @param buttonEventListener Handler of the button events
@@ -76,10 +78,13 @@ public class JEDI implements JEDI_api{
 	 * @throws TooManyListenersException
 	 * @throws UnsupportedCommOperationException
 	 */
-	public JEDI(int jediID, int serverID, String portName, ButtonListenerInterface buttonEventListener, ConnectionListenerInterface connectionEventLister) throws NoSuchPortException, PortInUseException, IOException, TooManyListenersException, UnsupportedCommOperationException{
+	public JEDI(int jediID, JoystickNumbers joystickNumber, int serverID, String portName, ButtonListenerInterface buttonEventListener, ConnectionListenerInterface connectionEventLister) throws NoSuchPortException, PortInUseException, IOException, TooManyListenersException, UnsupportedCommOperationException{
 		
 		// id of the jedi to communicate to
 		this.jediID = jediID;
+		
+		// joystick Number, either 1 or 2
+		this.joystickNumber = joystickNumber;
 		
 		// set the port name
 		this.portName = portName;
@@ -140,19 +145,46 @@ public class JEDI implements JEDI_api{
 	}
 	
 	/**
-	 * Gets the Server ID that is communicating with the JEDI
-	 * @return An integer with the Server ID
+	 * Sets the Joystick number
+	 * @param enum with the joystick desired (either ONE or TWO) 
 	 */
-	public int getServerID() {
-		return serverID;
+	public void setJoystickNumber(JoystickNumbers joystickNumber) {
+		this.joystickNumber = joystickNumber;
 	}
-
+	
+	/**
+	 * Gets the Joystick number
+	 * @return an enum with the selected joystick
+	 */
+	public JoystickNumbers getJoystickNumber() {
+		return joystickNumber;
+	}
+	
+	/**
+	 * Gets the Joystick number
+	 * @return an enum with the selected joystick
+	 */
+	public int getJoystickNumberAsInt() {
+		if(joystickNumber == JoystickNumbers.JEDI_ONE)
+			return 1;
+		else
+			return 2;
+	}
+	
 	/**
 	 * Sets the JEDI ID (BE VERY CAREFULL! It may leed to a complete lost of communications with the JEDI)
 	 * @param jediID New JEDI ID 
 	 */
 	public void setJediID(int jediID) {
 		this.jediID = jediID;
+	}
+	
+	/**
+	 * Gets the Server ID that is communicating with the JEDI
+	 * @return An integer with the Server ID
+	 */
+	public int getServerID() {
+		return serverID;
 	}
 
 	/**
