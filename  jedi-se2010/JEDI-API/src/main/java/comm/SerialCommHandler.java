@@ -113,6 +113,7 @@ public class SerialCommHandler implements CommHandler {
         
         switch(readBuffer[2]){
         	case 11:	// DISCOVER_REQUEST
+        		System.out.println("Discover request");
         		doDiscoverReq(readBuffer);
         		break;
         	case 12:	// DISCOVER_RESPONSE
@@ -149,7 +150,9 @@ public class SerialCommHandler implements CommHandler {
 			return;
 		}
 		
-		if(reqPck.getOrig() == jedi.getJediID()){
+		if(reqPck.getOrig() != jedi.getJediID()){
+			return;
+		} else {
 			jedi.setJediTick(130);
 			jedi.setConnectionState(true);
 			fireConnectionStartedEvent();
@@ -171,7 +174,6 @@ public class SerialCommHandler implements CommHandler {
 			System.out.println("Wrong type of package");
 			return;
 		}
-		
 	}
 
 	private void doInform(byte[] readBuffer) {
@@ -180,6 +182,11 @@ public class SerialCommHandler implements CommHandler {
 		if(pck == null){
 			System.out.println("Wrong type of package");
 			return;
+		}
+		
+		if(pck.getOrig() == jedi.getJediID() && !jedi.isConnected()){
+			jedi.setConnectionState(true);
+			fireConnectionStartedEvent();
 		}
 		
 		fixedQueue.add(pck.getAxis());
@@ -200,10 +207,9 @@ public class SerialCommHandler implements CommHandler {
 				jedi.decJediTick();
 			
 			// if the tick reached zero, set the jedi as disconnected
-			if(jedi.getJediTick() == 0){
+			if(jedi.getJediTick() == 0 && jedi.isConnected()){
 				jedi.setConnectionState(false);
 				fireConnectionEndedEvent();
-				System.out.println("JEDI" + jedi.getJediID() + " disconnected!");
 			}
 				
 			if((count % 40) == 0){
