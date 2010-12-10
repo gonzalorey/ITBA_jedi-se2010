@@ -42,6 +42,8 @@ public class SerialCommHandler implements CommHandler {
 	public SerialCommHandler(JEDI_api jedi, ButtonListenerInterface buttonEventListener, 
 			ConnectionListenerInterface connectionEventListener) throws FileNotFoundException{
 		
+		System.out.println(((JEDI) jedi).getJediID() + ": starting serial comm handler");
+		
 		// initialize the jedi
 		this.jedi = (JEDI)jedi;
 		
@@ -113,7 +115,7 @@ public class SerialCommHandler implements CommHandler {
         
         switch(readBuffer[2]){
         	case 11:	// DISCOVER_REQUEST
-        		System.out.println("Discover request");
+        		System.out.println(jedi.getJediID() + ": Discover request");
         		doDiscoverReq(readBuffer);
         		break;
         	case 12:	// DISCOVER_RESPONSE
@@ -143,27 +145,36 @@ public class SerialCommHandler implements CommHandler {
 	}
 
 	private void doDiscoverReq(byte[] readBuffer) {
-		DiscoverReqPacket reqPck = DiscoverReqPacket.parseInform(readBuffer);
-		
-		if(reqPck == null){
-			System.out.println("Wrong type of package");
-			return;
-		}
-		
-		if(reqPck.getOrig() != jedi.getJediID()){
-			return;
-		} else {
-			jedi.setJediTick(130);
-			jedi.setConnectionState(true);
-			fireConnectionStartedEvent();
-		}
-		
-		DiscoverRespPacket respPck = new DiscoverRespPacket(jedi.getServerID(), reqPck.getOrig(), jedi.getJoystickNumberAsInt(), acc_method.ACC_METHOD_MEDIAN,(byte) 0xFF);
-		
-		try {
-			outputStream.write(respPck.serialize());
-		} catch (IOException e) {
-			e.printStackTrace();
+		try{
+			System.out.println(jedi.getJediID() + ": doing discover request...");
+			DiscoverReqPacket reqPck = DiscoverReqPacket.parseInform(readBuffer);
+			System.out.println(jedi.getJediID() + ": discover request package built");
+
+			if(reqPck == null){
+				System.out.println("Wrong type of package");
+				return;
+			}
+
+			if(reqPck.getOrig() != jedi.getJediID()){
+				System.out.println(jedi.getJediID() + ": SON DISTINTO' MAETRO'!!!!");
+				return;
+			} else {
+				jedi.setJediTick(130);
+				jedi.setConnectionState(true);
+				fireConnectionStartedEvent();
+			}
+
+			DiscoverRespPacket respPck = new DiscoverRespPacket(jedi.getServerID(), reqPck.getOrig(), jedi.getJoystickNumberAsInt(), acc_method.ACC_METHOD_MEDIAN,(byte) 0xFF);
+
+			try {
+				outputStream.write(respPck.serialize());
+				System.out.println(jedi.getJediID() + ": offered");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}catch (Exception e1) {
+			System.out.println("lero lero");
+			e1.printStackTrace();
 		}
 	}
 	
