@@ -5,12 +5,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -43,7 +48,6 @@ public class Fakejedi extends JPanel implements JEDI_api, ActionListener, Button
 		this.api = api;
 	}
 
-	@SuppressWarnings("unused")
 	private boolean fakeEvents = false;
 	
 	private JTextArea eventTextArea;
@@ -64,6 +68,7 @@ public class Fakejedi extends JPanel implements JEDI_api, ActionListener, Button
 	private int acc_bar_x_coordinate_x = panel_width - acc_bars_width*3 - acc_bars_separation*5;
 	private int acc_bar_y_coordinate_x = acc_bar_x_coordinate_x + acc_bars_width + acc_bars_separation;
 	private int acc_bar_z_coordinate_x = acc_bar_y_coordinate_x + acc_bars_width + acc_bars_separation;
+	private java.awt.Color acc_bar_color = Color.WHITE;
 	
 	private JPanel accZeroLine;
 	
@@ -80,6 +85,18 @@ public class Fakejedi extends JPanel implements JEDI_api, ActionListener, Button
 	private int label_x_coordinate_x = acc_bar_x_coordinate_x+4;
 	private int label_y_coordinate_x = acc_bar_y_coordinate_x+4;
 	private int label_z_coordinate_x = acc_bar_z_coordinate_x+4;
+	private java.awt.Color label_color = acc_bar_color;
+	
+	private Button buttonA;
+	private Button buttonB;
+	private int buttons_width = 30;
+	private int buttons_height = 30;
+	private int buttons_coordinate_y = 100;
+	private int buttons_delta = 10;
+	private int button_A_coordinate_x = 100;
+	private int button_B_coordinate_x = button_A_coordinate_x + buttons_width + buttons_delta;
+	private java.awt.Color button_color_on = Color.RED;
+	private java.awt.Color button_color_off= Color.WHITE;
 	
 	public Fakejedi(ButtonListenerInterface bl, ConnectionListenerInterface ci){
 		setLayout(null);
@@ -94,12 +111,12 @@ public class Fakejedi extends JPanel implements JEDI_api, ActionListener, Button
         
         accZeroLine = new JPanel();
         accZeroLine.setBounds(acc_zero_line_x, acc_zero_line_y, acc_zero_line_width, acc_zero_line_height);
-        accZeroLine.setBackground(Color.WHITE);
+        accZeroLine.setBackground(acc_bar_color);
         add(accZeroLine);
         
-        acc_bar_x = new AccBar(acc_bar_x_coordinate_x, acc_bars_y_coordinate, acc_bars_width, 0, Color.WHITE);
-        acc_bar_y = new AccBar(acc_bar_y_coordinate_x, acc_bars_y_coordinate, acc_bars_width, 0, Color.WHITE);
-        acc_bar_z = new AccBar(acc_bar_z_coordinate_x, acc_bars_y_coordinate, acc_bars_width, 0, Color.WHITE);
+        acc_bar_x = new AccBar(acc_bar_x_coordinate_x, acc_bars_y_coordinate, acc_bars_width, 0, acc_bar_color);
+        acc_bar_y = new AccBar(acc_bar_y_coordinate_x, acc_bars_y_coordinate, acc_bars_width, 0, acc_bar_color);
+        acc_bar_z = new AccBar(acc_bar_z_coordinate_x, acc_bars_y_coordinate, acc_bars_width, 0, acc_bar_color);
         acc_bar_x.addToPanel(this);
         acc_bar_y.addToPanel(this);
         acc_bar_z.addToPanel(this);
@@ -113,12 +130,20 @@ public class Fakejedi extends JPanel implements JEDI_api, ActionListener, Button
         label_x.setHorizontalTextPosition(JLabel.CENTER);
         label_y.setHorizontalTextPosition(JLabel.CENTER);
         label_z.setHorizontalTextPosition(JLabel.CENTER);
-        label_x.setForeground(Color.WHITE);
-        label_y.setForeground(Color.WHITE);
-        label_z.setForeground(Color.WHITE);
+        label_x.setForeground(label_color);
+        label_y.setForeground(label_color);
+        label_z.setForeground(label_color);
         add(label_x);
         add(label_y);
         add(label_z);
+        
+        buttonA = new Button(button_A_coordinate_x, buttons_coordinate_y, buttons_width, buttons_height, "A", button_color_on, button_color_off);
+        buttonB = new Button(button_B_coordinate_x, buttons_coordinate_y, buttons_width, buttons_height, "B", button_color_on, button_color_off);
+        add(buttonA);
+        add(buttonB);
+        
+        BufferedImage myPicture;
+	
         
         JPanel textpanel = new JPanel();
         
@@ -353,17 +378,25 @@ public Axis getVelocity() {
 
 	@Override
 	public void buttonPressed(ButtonEvent e) {
-		if(e.getPressedButton() == ButtonEvent.JEDI_A)
+		if(e.getPressedButton() == ButtonEvent.JEDI_A){
 			eventTextArea.append("P_A\n");
-		else if(e.getPressedButton() == ButtonEvent.JEDI_B)
+			buttonA.setPressed();
+		}
+		else if(e.getPressedButton() == ButtonEvent.JEDI_B){
 			eventTextArea.append("P_B\n");
+			buttonB.setPressed();	
+		}
 	}
 
 	@Override
 	public void buttonReleased(ButtonEvent e) {
-		if(e.getPressedButton() == ButtonEvent.JEDI_A)
+		if(e.getPressedButton() == ButtonEvent.JEDI_A){
 			eventTextArea.append("R_A\n");
-		else if(e.getPressedButton() == ButtonEvent.JEDI_B)
+			buttonA.setReleased();
+		}
+		else if(e.getPressedButton() == ButtonEvent.JEDI_B){
 			eventTextArea.append("R_B\n");
+			buttonB.setReleased();
+		}
 	}
 }
