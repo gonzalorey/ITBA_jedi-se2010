@@ -58,7 +58,6 @@ public class Paddle {
 					if(axis == null)
 						return;
 					dy = (int) (axis.getZ()/2);
-					System.out.println("dy = " + dy +" y = " + y);
 				}
 			}
 	    	

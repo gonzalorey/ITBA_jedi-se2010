@@ -12,52 +12,107 @@ import java.util.TooManyListenersException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import pong.Pong;
 import api.ButtonListenerInterface;
 import api.ConnectionListenerInterface;
 import api.JEDI_api;
 import api.impl.JEDI;
 import api.impl.JEDI.JoystickNumbers;
+import client.game.Board;
 import client.game.fakejedi.Fakejedi;
 
 public class Console implements ButtonListenerInterface, ConnectionListenerInterface {
 
+	private static final long serialVersionUID = 1L;
+	
 	// ID of this server
 	public static int SERVER_ID = 11;
 	
-	private static final long serialVersionUID = 1L;
-
-	private JEDI_api jedi;
+	// jedi instances
+	private JEDI_api jediOne;
+	private JEDI_api jediTwo;
+	
 	private Fakejedi dashboard;
 	
-	private Pong game;
+	private Board game;
 	
-	public Console() throws NoSuchPortException, PortInUseException, IOException, TooManyListenersException, UnsupportedCommOperationException {
+	public Console(String jediOnePort) throws NoSuchPortException, 
+		PortInUseException, IOException, TooManyListenersException, UnsupportedCommOperationException {
 
 		try{
-			
 			// initialize the JEDI
-			//jedi = new JEDI(101, SERVER_ID, "COM7", this, this);
-			//((JEDI)jedi).start();
-			jedi = new JEDI(101, JoystickNumbers.JEDI_ONE, SERVER_ID, "COM7", this, this);
-			((JEDI)jedi).start();
+			jediOne = new JEDI(101, JoystickNumbers.JEDI_ONE, SERVER_ID, jediOnePort, this, this);
+
+			// start the jedi controller
+			((JEDI)jediOne).start();
+
+			// initialize the fake JEDI
+			dashboard = new Fakejedi(this, this);
+			dashboard.setApi(jediOne);
+			//throw new NoSuchPortException();
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			System.out.println("Setting the jedi as the dashboard");
+			jediOne = new Fakejedi(this, this);
+			dashboard = (Fakejedi)jediOne;
+			dashboard.setApi(jediOne);
+			((Fakejedi)jediOne).enableEvents();
+		}
+
+		JFrame gameFrame = new JFrame("Juego");
+
+		game = new Board(jediOne);
+
+		gameFrame.add(game);
+
+		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		gameFrame.setSize(400, 300);
+		gameFrame.setLocationRelativeTo(null);
+		gameFrame.setResizable(false);
+		gameFrame.setVisible(true);
+		gameFrame.setLocation(500, 0);
+
+		JFrame jediFrame = new JFrame("JEDI");
+
+		jediFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		jediFrame.setSize(400, 300);
+		jediFrame.setLocationRelativeTo(null);
+		jediFrame.setResizable(false);
+		jediFrame.setVisible(true);
+		jediFrame.setLocation(0, 0);
+
+		//if(jedi instanceof Fakejedi){
+		jediFrame.add((JPanel)dashboard);
+		//}   
+	}
+	
+	public Console(String jediOnePort, String jediTwoPort) throws NoSuchPortException, 
+		PortInUseException, IOException, TooManyListenersException, UnsupportedCommOperationException {
+
+		try{
+			// initialize the JEDI
+			jediOne = new JEDI(101, JoystickNumbers.JEDI_ONE, SERVER_ID, jediOnePort, this, this);
+			jediTwo = new JEDI(102, JoystickNumbers.JEDI_TWO, SERVER_ID, jediTwoPort, this, this);
+			
+			((JEDI)jediOne).start();
+			((JEDI)jediTwo).start();
 			
 			// initialize the fake JEDI
 			dashboard = new Fakejedi(this, this);
-			dashboard.setApi(jedi);
-			throw new NoSuchPortException();
+			dashboard.setApi(jediOne);
+			//throw new NoSuchPortException();
 		}
 		catch(Exception e){
 			System.out.println("Setting the jedi as the dashboard");
-			jedi = new Fakejedi(this, this);
-			dashboard = (Fakejedi)jedi;
-			dashboard.setApi(jedi);
-			((Fakejedi)jedi).enableEvents();
+			jediOne = new Fakejedi(this, this);
+			dashboard = (Fakejedi)jediOne;
+			dashboard.setApi(jediOne);
+			((Fakejedi)jediOne).enableEvents();
 		}
 		
         JFrame gameFrame = new JFrame("Juego");
         
-        game = new Pong(jedi, jedi);
+        game = new Board(jediOne);
         
         gameFrame.add(game);
         
@@ -83,8 +138,9 @@ public class Console implements ButtonListenerInterface, ConnectionListenerInter
         
     }
 	
-	public static void main(String[] args) throws NoSuchPortException, PortInUseException, IOException, TooManyListenersException, UnsupportedCommOperationException {
-		new Console();
+	public static void main(String[] args) throws NoSuchPortException, PortInUseException, IOException, 
+		TooManyListenersException, UnsupportedCommOperationException {
+		new Console("COM7");
 		
 		while(true)
 		{
