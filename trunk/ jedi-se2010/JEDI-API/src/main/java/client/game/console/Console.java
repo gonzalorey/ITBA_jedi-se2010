@@ -12,12 +12,12 @@ import java.util.TooManyListenersException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import pong.Pong;
 import api.ButtonListenerInterface;
 import api.ConnectionListenerInterface;
 import api.JEDI_api;
 import api.impl.JEDI;
 import api.impl.JEDI.JoystickNumbers;
-import client.game.Board;
 import client.game.fakejedi.Fakejedi;
 
 public class Console implements ButtonListenerInterface, ConnectionListenerInterface {
@@ -30,20 +30,22 @@ public class Console implements ButtonListenerInterface, ConnectionListenerInter
 	private JEDI_api jedi;
 	private Fakejedi dashboard;
 	
-	private Board game;
+	private Pong game;
 	
 	public Console() throws NoSuchPortException, PortInUseException, IOException, TooManyListenersException, UnsupportedCommOperationException {
 
 		try{
 			
 			// initialize the JEDI
+			//jedi = new JEDI(101, SERVER_ID, "COM7", this, this);
+			//((JEDI)jedi).start();
 			jedi = new JEDI(101, JoystickNumbers.JEDI_ONE, SERVER_ID, "COM7", this, this);
 			((JEDI)jedi).start();
 			
 			// initialize the fake JEDI
 			dashboard = new Fakejedi(this, this);
 			dashboard.setApi(jedi);
-			//throw new NoSuchPortException();
+			throw new NoSuchPortException();
 		}
 		catch(Exception e){
 			System.out.println("Setting the jedi as the dashboard");
@@ -55,7 +57,7 @@ public class Console implements ButtonListenerInterface, ConnectionListenerInter
 		
         JFrame gameFrame = new JFrame("Juego");
         
-        game = new Board(jedi);
+        game = new Pong(jedi, jedi);
         
         gameFrame.add(game);
         

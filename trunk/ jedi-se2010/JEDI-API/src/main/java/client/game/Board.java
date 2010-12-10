@@ -34,7 +34,7 @@ public class Board extends JPanel implements ButtonListenerInterface, Connection
     private int B_WIDTH;
     private int B_HEIGHT;
     
-    private static boolean pause = true;
+    public static boolean pause = true;
     private static boolean calibration = false;
     
     private int[][] pos = { 
