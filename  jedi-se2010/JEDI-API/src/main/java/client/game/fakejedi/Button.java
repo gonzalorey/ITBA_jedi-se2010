@@ -8,7 +8,10 @@ public class Button extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@SuppressWarnings("unused")
 	private int x, y, width, height;
+	
 	java.awt.Color colorOn, colorOff;
 	String label;
 	
