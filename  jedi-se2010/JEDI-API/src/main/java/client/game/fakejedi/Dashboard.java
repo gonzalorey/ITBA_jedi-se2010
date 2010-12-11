@@ -29,10 +29,11 @@ public class Dashboard extends JPanel implements ActionListener, ButtonListenerI
 	
 
 
-	JEDI_api api = null;
+	JEDI_api api1 = null;
+	JEDI_api api2 = null;
 	
 	public void setApi(JEDI_api api) {
-		this.api = api;
+		this.api1 = api;
 	}
 
 	
@@ -87,8 +88,70 @@ public class Dashboard extends JPanel implements ActionListener, ButtonListenerI
 	private java.awt.Color button_color_on = Color.RED;
 	private java.awt.Color button_color_off= Color.WHITE;
 	
+	public Dashboard(JEDI_api api1, JEDI_api api2){
+		this.api1 = api1;
+		if(api1 instanceof FakeJEDI)
+			addKeyListener(((FakeJEDI) api1).getAdapter());
+		
+		this.api2 = api2;
+		if(api2 instanceof FakeJEDI)
+			addKeyListener(((FakeJEDI) api2).getAdapter());
+		
+		setLayout(null);
+        setFocusable(true);
+        setBackground(Color.BLACK);
+        setDoubleBuffered(true);
+
+        setSize(panel_width, panel_height);
+        
+        accZeroLine = new JPanel();
+        accZeroLine.setBounds(acc_zero_line_x, acc_zero_line_y, acc_zero_line_width, acc_zero_line_height);
+        accZeroLine.setBackground(acc_bar_color);
+        add(accZeroLine);
+        
+        acc_bar_x = new AccBar(acc_bar_x_coordinate_x, acc_bars_y_coordinate, acc_bars_width, 0, acc_bar_color);
+        acc_bar_y = new AccBar(acc_bar_y_coordinate_x, acc_bars_y_coordinate, acc_bars_width, 0, acc_bar_color);
+        acc_bar_z = new AccBar(acc_bar_z_coordinate_x, acc_bars_y_coordinate, acc_bars_width, 0, acc_bar_color);
+        acc_bar_x.addToPanel(this);
+        acc_bar_y.addToPanel(this);
+        acc_bar_z.addToPanel(this);
+        
+        label_x = new JLabel("x\n");
+        label_y = new JLabel("y\n");
+        label_z = new JLabel("z\n");
+        label_x.setBounds(label_x_coordinate_x, labels_coordinate_y, acc_bar_x_coordinate_x, 15);
+        label_y.setBounds(label_y_coordinate_x, labels_coordinate_y, acc_bar_y_coordinate_x, 15);
+        label_z.setBounds(label_z_coordinate_x, labels_coordinate_y, acc_bar_z_coordinate_x, 15);
+        label_x.setHorizontalTextPosition(JLabel.CENTER);
+        label_y.setHorizontalTextPosition(JLabel.CENTER);
+        label_z.setHorizontalTextPosition(JLabel.CENTER);
+        label_x.setForeground(label_color);
+        label_y.setForeground(label_color);
+        label_z.setForeground(label_color);
+        add(label_x);
+        add(label_y);
+        add(label_z);
+        
+        buttonA = new Button(button_A_coordinate_x, buttons_coordinate_y, buttons_width, buttons_height, "A", button_color_on, button_color_off);
+        buttonB = new Button(button_B_coordinate_x, buttons_coordinate_y, buttons_width, buttons_height, "B", button_color_on, button_color_off);
+        add(buttonA);
+        add(buttonB);
+        
+        JPanel textpanel = new JPanel();
+        
+        textpanel.setSize(100, 100);
+        
+        eventTextArea = new JTextArea("", 6, 8);
+        JScrollPane jsc = new JScrollPane(eventTextArea);
+        textpanel.add(jsc);
+		add(textpanel);
+        
+        timer = new Timer();
+        timer.scheduleAtFixedRate(new ScheduleTask(), 5, 5);
+	}
+	
 	public Dashboard(JEDI_api api1) {
-		api = api1;
+		this.api1 = api1;
 		if(api1 instanceof FakeJEDI)
 			addKeyListener(((FakeJEDI) api1).getAdapter());
 			
@@ -206,9 +269,9 @@ public class Dashboard extends JPanel implements ActionListener, ButtonListenerI
 
 		@Override
 		public void run() {
-			if(api != null){
+			if(api1 != null){
 				
-				Axis acc = api.getAcceleration();
+				Axis acc = api1.getAcceleration();
 				if(acc == null)
 					return;
 				
@@ -278,3 +341,4 @@ public class Dashboard extends JPanel implements ActionListener, ButtonListenerI
 		}
 	}
 }
+
