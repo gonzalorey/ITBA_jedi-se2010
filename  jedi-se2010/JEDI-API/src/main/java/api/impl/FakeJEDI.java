@@ -81,19 +81,19 @@ public class FakeJEDI implements JEDI_api{
 	        }
 	        
 	        if (key == left) {
-	        	x -=10;
+	        	x = -10;
 	        }
 
 	        if (key == right) {
-	        	x += 10;
+	        	x = 10;
 	        }
 
 	        if (key == up) {
-	        	z -= 10;
+	        	z = -10;
 	        }
 
 	        if (key == down) {
-	        	z += 10;
+	        	z = 10;
 	        }
 	    }
 	
@@ -122,19 +122,19 @@ public class FakeJEDI implements JEDI_api{
 	    	
 	    	
 	        if (key == left) {
-	        	x += 10;
+	        	x = 0;
 	        }
 
 	        if (key == right) {
-	        	x -= 10;
+	        	x = 0;
 	        }
 
 	        if (key == up) {
-	        	z += 10;
+	        	z = 0;
 	        }
 
 	        if (key == down) {
-	        	z -= 10;
+	        	z = 0;
 	        }
 	    }
 	}
