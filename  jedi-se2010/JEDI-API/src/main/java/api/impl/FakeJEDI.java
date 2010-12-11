@@ -24,11 +24,14 @@ public class FakeJEDI implements JEDI_api{
 	private double z = 0;
 	
 	private TAdapter adapter;
-		
+	
+	private JoystickNumbers number;
+	
 	public FakeJEDI(ButtonListenerInterface bl, ConnectionListenerInterface cl, JoystickNumbers jediNumber) {
 		addButtonEventListener(bl);
 		addConnectionEventListener(cl);
 		adapter = new TAdapter(jediNumber);
+		number = jediNumber;
 	}
 
 	public TAdapter getAdapter() {
@@ -73,6 +76,7 @@ public class FakeJEDI implements JEDI_api{
 	    	int key = e.getKeyCode();
 
 	        if (key == a) {
+	        	System.out.println("jedi" + number + ": pressed");
 	            firePressedEvent(ButtonEvent.JEDI_A);
 	        }
 	        
