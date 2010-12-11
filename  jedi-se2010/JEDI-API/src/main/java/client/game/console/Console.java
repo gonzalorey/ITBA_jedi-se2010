@@ -16,9 +16,10 @@ import pong.Pong;
 import api.ButtonListenerInterface;
 import api.ConnectionListenerInterface;
 import api.JEDI_api;
+import api.impl.FakeJEDI;
 import api.impl.JEDI;
 import api.impl.JEDI.JoystickNumbers;
-import client.game.fakejedi.Fakejedi;
+import client.game.fakejedi.Dashboard;
 
 public class Console implements ButtonListenerInterface, ConnectionListenerInterface {
 
@@ -31,7 +32,7 @@ public class Console implements ButtonListenerInterface, ConnectionListenerInter
 	private JEDI_api jediOne;
 	private JEDI_api jediTwo;
 	
-	private Fakejedi dashboard;
+	private Dashboard dashboard;
 	
 	private Pong game;
 	
@@ -40,30 +41,27 @@ public class Console implements ButtonListenerInterface, ConnectionListenerInter
 
 		try{
 			// initialize the JEDI
-			jediOne = new JEDI(102, JoystickNumbers.JEDI_ONE, SERVER_ID, jediOnePort, this, this);
+			//jediOne = new JEDI(102, JoystickNumbers.JEDI_ONE, SERVER_ID, jediOnePort, this, this);
 			
-			// iniyialize the fake JEDI
-			jediTwo = new Fakejedi(this, this);
-			((Fakejedi)jediTwo).enableEvents();
 			
-			// show the behaviour of the JEDI
-			dashboard = (Fakejedi)jediTwo;
-			dashboard.setApi(jediOne);
+			// Initialize the fake JEDI
+			jediOne = new FakeJEDI(this, this);
+			dashboard = new Dashboard(jediOne);
 			
 			// start the jedi controller
-			((JEDI)jediOne).start();
+			//((JEDI)jediOne).start();
 		}
 		catch(Exception e){
 			e.printStackTrace();
 			System.out.println("Setting the jedi as the dashboard");
-			jediOne = new Fakejedi(this, this);
-			dashboard = (Fakejedi)jediOne;
+			dashboard = new Dashboard(jediOne);
+			dashboard = (Dashboard)jediOne;
 			dashboard.setApi(jediOne);
-			((Fakejedi)jediOne).enableEvents();
+			((Dashboard)jediOne).enableEvents();
 		}
-
+		
 		JFrame gameFrame = new JFrame("Juego");
-
+		
 		game = new Pong(jediOne, jediTwo);
 
 		gameFrame.add(game);
@@ -102,15 +100,15 @@ public class Console implements ButtonListenerInterface, ConnectionListenerInter
 			((JEDI)jediTwo).start();
 			
 			// initialize the fake JEDI
-			dashboard = new Fakejedi(this, this);
+			dashboard = new Dashboard(this, this);
 			dashboard.setApi(jediOne);
 		}
 		catch(Exception e){
 			System.out.println("Setting the jedi as the dashboard");
-			jediOne = new Fakejedi(this, this);
-			dashboard = (Fakejedi)jediOne;
+			dashboard = new Dashboard(jediOne);
+			dashboard = (Dashboard)jediOne;
 			dashboard.setApi(jediOne);
-			((Fakejedi)jediOne).enableEvents();
+			((Dashboard)jediOne).enableEvents();
 		}
 		
         JFrame gameFrame = new JFrame("Juego");
@@ -143,8 +141,9 @@ public class Console implements ButtonListenerInterface, ConnectionListenerInter
 	
 	public static void main(String[] args) throws NoSuchPortException, PortInUseException, IOException, 
 		TooManyListenersException, UnsupportedCommOperationException {
-		new Console("COM9", "COM7");
-//		new Console("COM7");
+		//new Console("COM9", "COM7");
+		new Console("COM7");
+		
 		
 		while(true)
 		{

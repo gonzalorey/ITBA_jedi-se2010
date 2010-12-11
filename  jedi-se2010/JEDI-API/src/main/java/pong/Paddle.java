@@ -55,9 +55,11 @@ public class Paddle {
 			@Override
 			public void run() {
 				if(!Pong.isPause() && !Board.isCalibration()){
-					Axis axis = api.getAcceleration();
-					if(axis == null)
+					if(api == null)
 						return;
+					
+					Axis axis = api.getAcceleration();
+					
 					dy = (int) (axis.getZ()/2);
 				}
 			}
@@ -71,7 +73,7 @@ public class Paddle {
             y = 0;
         }
         
-        if (y > (BOARD_HEIGHT-height))
+        if (y >= (BOARD_HEIGHT-height))
         	y = BOARD_HEIGHT-height;
     }
 	
