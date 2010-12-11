@@ -76,7 +76,6 @@ public class FakeJEDI implements JEDI_api{
 	    	int key = e.getKeyCode();
 
 	        if (key == a) {
-	        	System.out.println("jedi" + number + ": pressed");
 	            firePressedEvent(ButtonEvent.JEDI_A);
 	        }
 	        
@@ -239,6 +238,14 @@ public class FakeJEDI implements JEDI_api{
 		while(i.hasNext())  {
 			i.next().connectionEnded(event);
 		}
+	}
+
+	@Override
+	public int getJediID() {
+		if(number == JoystickNumbers.JEDI_ONE)
+			return 101;
+		else
+			return 102;
 	}
 
 }

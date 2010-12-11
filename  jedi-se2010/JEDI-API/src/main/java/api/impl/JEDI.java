@@ -140,6 +140,7 @@ public class JEDI implements JEDI_api{
 	 * Gets the JEDI ID
 	 * @return An integer with the JEDI ID
 	 */
+	@Override
 	public int getJediID() {
 		return jediID;
 	}

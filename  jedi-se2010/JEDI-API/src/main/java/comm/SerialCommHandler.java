@@ -279,7 +279,7 @@ public class SerialCommHandler implements CommHandler {
 	}
 	
 	private synchronized void firePressedEvent(int actionButton) {
-		ButtonEvent event = new ButtonEvent(this, actionButton);
+		ButtonEvent event = new ButtonEvent(jedi, actionButton);
 		Iterator<ButtonListenerInterface> i = buttonListeners.iterator();
 		while(i.hasNext())  {
 			i.next().buttonPressed(event);
@@ -287,7 +287,7 @@ public class SerialCommHandler implements CommHandler {
 	}
 	
 	private synchronized void fireReleasedEvent(int actionButton) {
-		ButtonEvent event = new ButtonEvent(this, actionButton);
+		ButtonEvent event = new ButtonEvent(jedi, actionButton);
 		Iterator<ButtonListenerInterface> i = buttonListeners.iterator();
 		while(i.hasNext())  {
 			i.next().buttonReleased(event);
@@ -305,7 +305,7 @@ public class SerialCommHandler implements CommHandler {
 	}
 	
 	private synchronized void fireConnectionStartedEvent() {
-		ConnectionEvent event = new ConnectionEvent(this);
+		ConnectionEvent event = new ConnectionEvent(jedi);
 		Iterator<ConnectionListenerInterface> i = connectionListeners.iterator();
 		while(i.hasNext())  {
 			i.next().connectionStarted(event);
@@ -313,7 +313,7 @@ public class SerialCommHandler implements CommHandler {
 	}
 	
 	private synchronized void fireConnectionEndedEvent() {
-		ConnectionEvent event = new ConnectionEvent(this);
+		ConnectionEvent event = new ConnectionEvent(jedi);
 		Iterator<ConnectionListenerInterface> i = connectionListeners.iterator();
 		while(i.hasNext())  {
 			i.next().connectionEnded(event);
