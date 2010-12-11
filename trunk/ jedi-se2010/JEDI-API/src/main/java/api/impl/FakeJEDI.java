@@ -123,8 +123,6 @@ public class FakeJEDI implements JEDI_api{
 	            fireConnectionEndedEvent();
 	        }
 
-	    	
-	    	
 	        if (key == left) {
 	        	x = 0;
 	        }

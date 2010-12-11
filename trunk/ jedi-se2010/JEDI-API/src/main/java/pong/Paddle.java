@@ -55,10 +55,10 @@ public class Paddle {
 			@Override
 			public void run() {
 				if(!Pong.isPause() && !Board.isCalibration()){
-					if(api == null)
-						return;
+					Axis axis;
 					
-					Axis axis = api.getAcceleration();
+					if(api == null || (axis = api.getAcceleration()) == null)
+						return;
 					
 					dy = (int) (axis.getZ()/2);
 				}
