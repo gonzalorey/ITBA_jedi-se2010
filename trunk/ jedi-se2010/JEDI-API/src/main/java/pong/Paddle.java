@@ -20,6 +20,7 @@ public class Paddle {
 	
 	private boolean visible;
 	
+	@SuppressWarnings("unused")
 	private final int BOARD_WIDTH = 390;
 	private final int BOARD_HEIGHT = 290;
 	

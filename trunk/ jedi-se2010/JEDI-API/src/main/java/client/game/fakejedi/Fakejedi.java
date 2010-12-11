@@ -5,17 +5,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -48,6 +43,8 @@ public class Fakejedi extends JPanel implements JEDI_api, ActionListener, Button
 		this.api = api;
 	}
 
+	
+	@SuppressWarnings("unused")
 	private boolean fakeEvents = false;
 	
 	private JTextArea eventTextArea;
@@ -141,9 +138,6 @@ public class Fakejedi extends JPanel implements JEDI_api, ActionListener, Button
         buttonB = new Button(button_B_coordinate_x, buttons_coordinate_y, buttons_width, buttons_height, "B", button_color_on, button_color_off);
         add(buttonA);
         add(buttonB);
-        
-        BufferedImage myPicture;
-	
         
         JPanel textpanel = new JPanel();
         
