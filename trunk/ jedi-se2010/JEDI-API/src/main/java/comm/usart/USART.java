@@ -14,7 +14,6 @@ import java.io.OutputStream;
 import java.util.TooManyListenersException;
 
 import api.ButtonListenerInterface;
-import api.impl.FakeJEDI;
 
 import comm.CommHandler;
 
