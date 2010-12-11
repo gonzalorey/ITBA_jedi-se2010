@@ -17,16 +17,18 @@ import event.ConnectionEvent;
 
 public class FakeJEDI implements JEDI_api{
 
+	public static enum JoystickNumbers{JEDI_ONE, JEDI_TWO};
+	
 	private double x = 0;
 	private double y = 10;
 	private double z = 0;
 	
 	private TAdapter adapter;
-	
-	public FakeJEDI(ButtonListenerInterface bl, ConnectionListenerInterface cl) {
+		
+	public FakeJEDI(ButtonListenerInterface bl, ConnectionListenerInterface cl, JoystickNumbers jediNumber) {
 		addButtonEventListener(bl);
 		addConnectionEventListener(cl);
-		adapter = new TAdapter();
+		adapter = new TAdapter(jediNumber);
 	}
 
 	public TAdapter getAdapter() {
@@ -35,33 +37,62 @@ public class FakeJEDI implements JEDI_api{
 	
 	private class TAdapter extends KeyAdapter {
 		
+		int up, down, left, right;
+		
+		//  button a, button b, connect, disconnect
+		int a, b, c, d;
+		
+		public TAdapter(JoystickNumbers jediNumber) {
+			if(jediNumber==JoystickNumbers.JEDI_ONE){
+				up = KeyEvent.VK_UP;
+				down = KeyEvent.VK_DOWN;
+				left = KeyEvent.VK_LEFT;
+				right = KeyEvent.VK_RIGHT;
+				
+				a = KeyEvent.VK_K;
+				b = KeyEvent.VK_L;
+				c = KeyEvent.VK_I;
+				d = KeyEvent.VK_O;
+			}else{
+				up = KeyEvent.VK_W;
+				down = KeyEvent.VK_S;
+				left = KeyEvent.VK_A;
+				right = KeyEvent.VK_D;
+				
+				a = KeyEvent.VK_V;
+				b = KeyEvent.VK_B;
+				c = KeyEvent.VK_Q;
+				d = KeyEvent.VK_E;
+			}
+		}
+		
 	    public void keyPressed(KeyEvent e) {
 //	    	if (!isFakeEvents())
 //	    		return;
 	    	
 	    	int key = e.getKeyCode();
 
-	        if (key == KeyEvent.VK_Z) {
+	        if (key == a) {
 	            firePressedEvent(ButtonEvent.JEDI_A);
 	        }
 	        
-	        if (key == KeyEvent.VK_X) {
+	        if (key == b) {
 	            firePressedEvent(ButtonEvent.JEDI_B);
 	        }
 	        
-	        if (key == KeyEvent.VK_LEFT) {
+	        if (key == left) {
 	        	x -=10;
 	        }
 
-	        if (key == KeyEvent.VK_RIGHT) {
+	        if (key == right) {
 	        	x += 10;
 	        }
 
-	        if (key == KeyEvent.VK_UP) {
+	        if (key == up) {
 	        	z -= 10;
 	        }
 
-	        if (key == KeyEvent.VK_DOWN) {
+	        if (key == down) {
 	        	z += 10;
 	        }
 	    }
@@ -72,37 +103,37 @@ public class FakeJEDI implements JEDI_api{
 	    	
 	    	int key = e.getKeyCode();
 
-	        if (key == KeyEvent.VK_Z) {
+	        if (key == a) {
 	            fireReleasedEvent(ButtonEvent.JEDI_A);
 	        }
 	        
-	        if (key == KeyEvent.VK_X) {
+	        if (key == b) {
 	            fireReleasedEvent(ButtonEvent.JEDI_B);
 	        }
 	        
-	        if (key == KeyEvent.VK_Q) {
+	        if (key == c) {
 	            fireConnectionStartedEvent();
 	        }
 	        
-	        if (key == KeyEvent.VK_W) {
+	        if (key == d) {
 	            fireConnectionEndedEvent();
 	        }
 
 	    	
 	    	
-	        if (key == KeyEvent.VK_LEFT) {
+	        if (key == left) {
 	        	x += 10;
 	        }
 
-	        if (key == KeyEvent.VK_RIGHT) {
+	        if (key == right) {
 	        	x -= 10;
 	        }
 
-	        if (key == KeyEvent.VK_UP) {
+	        if (key == up) {
 	        	z += 10;
 	        }
 
-	        if (key == KeyEvent.VK_DOWN) {
+	        if (key == down) {
 	        	z -= 10;
 	        }
 	    }

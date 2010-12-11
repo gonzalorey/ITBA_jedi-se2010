@@ -45,7 +45,7 @@ public class Console implements ButtonListenerInterface, ConnectionListenerInter
 			
 			
 			// Initialize the fake JEDI
-			jediOne = new FakeJEDI(this, this);
+			jediOne = new FakeJEDI(this, this, api.impl.FakeJEDI.JoystickNumbers.JEDI_TWO);
 			dashboard = new Dashboard(jediOne);
 			
 			// start the jedi controller
