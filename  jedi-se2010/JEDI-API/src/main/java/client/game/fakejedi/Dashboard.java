@@ -332,7 +332,7 @@ public class Dashboard extends JPanel implements ActionListener, ButtonListenerI
 	@Override
 	public void buttonReleased(ButtonEvent e) {
 		if(e.getPressedButton() == ButtonEvent.JEDI_A){
-			eventTextArea.append("R_A\n");
+			eventTextArea.append(((JEDI_api) e.getSource()).getJediID() + "R_A\n");
 			buttonA.setReleased();
 		}
 		else if(e.getPressedButton() == ButtonEvent.JEDI_B){
