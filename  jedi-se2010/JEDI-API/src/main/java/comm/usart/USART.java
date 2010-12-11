@@ -14,6 +14,7 @@ import java.io.OutputStream;
 import java.util.TooManyListenersException;
 
 import api.ButtonListenerInterface;
+import api.impl.FakeJEDI;
 
 import comm.CommHandler;
 
@@ -61,10 +62,17 @@ public class USART implements SerialPortEventListener{
     	// get the port to listen to
     	try {
 			portID = CommPortIdentifier.getPortIdentifier(portName);
-		} catch (NoSuchPortException e) {
+		}
+    	catch (NoClassDefFoundError n) {
+			
+			// force exception
+			throw new NoSuchPortException();
+		}
+		catch (NoSuchPortException e) {
 			e.printStackTrace();
 			throw new NoSuchPortException();
 		}
+
     	
     	// initalize serial port
         try {

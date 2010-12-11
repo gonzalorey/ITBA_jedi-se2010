@@ -46,7 +46,7 @@ public class FakeJEDI implements JEDI_api{
 		int a, b, c, d;
 		
 		public TAdapter(JoystickNumbers jediNumber) {
-			if(jediNumber==JoystickNumbers.JEDI_ONE){
+			if(jediNumber==JoystickNumbers.JEDI_TWO){
 				up = KeyEvent.VK_UP;
 				down = KeyEvent.VK_DOWN;
 				left = KeyEvent.VK_LEFT;

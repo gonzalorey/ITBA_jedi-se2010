@@ -107,6 +107,11 @@ public class Console implements ButtonListenerInterface, ConnectionListenerInter
 			// Initialize the fake JEDI
 			jediOne = new FakeJEDI(this, this, api.impl.FakeJEDI.JoystickNumbers.JEDI_ONE);
 		}
+		catch (UnsatisfiedLinkError u) {
+			System.out.println("RXTX Library not found");
+			
+			jediOne = new FakeJEDI(this, this, api.impl.FakeJEDI.JoystickNumbers.JEDI_ONE);
+		}
 		
 		// initialize the second JEDI
 		try{
