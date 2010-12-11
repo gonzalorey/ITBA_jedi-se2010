@@ -5,6 +5,8 @@ import data.Axis;
 
 public interface JEDI_api {
 	
+	int getJediID();
+	
 	/** 
 	 * Get the acceleration component of each axis
 	 * @return An object Axis with the JEDI accelerationsw
