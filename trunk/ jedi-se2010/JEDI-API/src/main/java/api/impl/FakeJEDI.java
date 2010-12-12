@@ -239,7 +239,7 @@ public class FakeJEDI implements JEDI_api{
 	}
 
 	@Override
-	public int getJediID() {
+	public Integer getJediID() {
 		if(number == JoystickNumbers.JEDI_ONE)
 			return 101;
 		else

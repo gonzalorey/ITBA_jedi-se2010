@@ -9,7 +9,7 @@ public interface JEDI_api {
 	
 	JoystickNumbers getJediNumber();
 	
-	int getJediID();
+	Integer getJediID();
 	
 	/** 
 	 * Get the acceleration component of each axis
