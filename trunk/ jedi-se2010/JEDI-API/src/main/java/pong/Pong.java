@@ -16,6 +16,7 @@ import api.ButtonListenerInterface;
 import api.CalibrationInterface;
 import api.ConnectionListenerInterface;
 import api.JEDI_api;
+import api.JEDI_api.JoystickNumbers;
 import client.game.Board;
 import event.ButtonEvent;
 import event.ConnectionEvent;
@@ -151,13 +152,26 @@ public class Pong extends JPanel implements ButtonListenerInterface, ConnectionL
 	public void buttonReleased(ButtonEvent e) {
 	}
 
+	private boolean jediOneConnected = false;
+	private boolean jediTwoConnected = false;
+	
 	@Override
 	public void connectionStarted(ConnectionEvent event) {
-		pause = false;
+		if(((JEDI_api) event.getSource()).getJediNumber()==JoystickNumbers.JEDI_ONE)
+			jediOneConnected = true;
+		else
+			jediTwoConnected = true;
+		
+		if(jediOneConnected && jediTwoConnected)
+			pause = false;
 	}
 
 	@Override
 	public void connectionEnded(ConnectionEvent event) {
+		if(((JEDI_api) event.getSource()).getJediNumber()==JoystickNumbers.JEDI_ONE)
+			jediOneConnected = false;
+		else
+			jediTwoConnected = false;
 		pause = true;
 	}
 	

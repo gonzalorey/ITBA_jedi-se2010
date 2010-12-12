@@ -7,8 +7,8 @@ import gnu.io.UnsupportedCommOperationException;
 import java.io.IOException;
 import java.util.TooManyListenersException;
 
+import api.JEDI_api.JoystickNumbers;
 import api.impl.JEDI;
-import api.impl.JEDI.JoystickNumbers;
 
 
 public class Main {

@@ -17,8 +17,6 @@ import event.ConnectionEvent;
 
 public class FakeJEDI implements JEDI_api{
 
-	public static enum JoystickNumbers{JEDI_ONE, JEDI_TWO};
-	
 	private double x = 0;
 	private double y = 10;
 	private double z = 0;
@@ -246,6 +244,11 @@ public class FakeJEDI implements JEDI_api{
 			return 101;
 		else
 			return 102;
+	}
+
+	@Override
+	public JoystickNumbers getJediNumber() {
+		return number;
 	}
 
 }
