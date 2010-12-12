@@ -405,4 +405,8 @@ public class JEDI implements JEDI_api{
 	public JoystickNumbers getJediNumber() {
 		return joystickNumber;
 	}
+
+	public void forceConnectionEvent(boolean b) {
+		((SerialCommHandler)handler).fireConnectionStartedEvent();
+	}
 }

@@ -309,7 +309,7 @@ public class SerialCommHandler implements CommHandler {
 		connectionListeners.remove(listener);
 	}
 	
-	private synchronized void fireConnectionStartedEvent() {
+	public synchronized void fireConnectionStartedEvent() {
 		ConnectionEvent event = new ConnectionEvent(jedi);
 		Iterator<ConnectionListenerInterface> i = connectionListeners.iterator();
 		while(i.hasNext())  {

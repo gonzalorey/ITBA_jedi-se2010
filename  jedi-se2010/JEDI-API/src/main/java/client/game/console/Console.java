@@ -207,6 +207,7 @@ public class Console implements ButtonListenerInterface, ConnectionListenerInter
 
 	@Override
 	public void connectionStarted(ConnectionEvent e) {
+		System.out.println("tu vieja");
 		if(currentPanel != null)
 			currentPanel.connectionStarted(e);
 		if(dashboard != null)
@@ -262,9 +263,15 @@ public class Console implements ButtonListenerInterface, ConnectionListenerInter
 			
 			if(jediOne instanceof FakeJEDI)
 				((FakeJEDI) jediOne).forceConnectionEvent(true);
+			else 
+				if(((JEDI) jediOne).isConnected())
+					((JEDI) jediOne).forceConnectionEvent(true);
 
 			if(jediTwo instanceof FakeJEDI)
 				((FakeJEDI) jediTwo).forceConnectionEvent(true);
+			else 
+				if(((JEDI) jediTwo).isConnected())
+					((JEDI) jediTwo).forceConnectionEvent(true);
 		}
 	}
 }

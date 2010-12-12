@@ -1,7 +1,5 @@
 package api;
 
-import java.awt.Component;
-
 import javax.swing.JPanel;
 
 public abstract class JEDIGame extends JPanel implements ButtonListenerInterface, ConnectionListenerInterface, CalibrationInterface {
