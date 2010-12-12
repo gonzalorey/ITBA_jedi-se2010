@@ -42,7 +42,7 @@ public class Console implements ButtonListenerInterface, ConnectionListenerInter
 		// initialize the firt JEDI
 		try{
 			// initialize the JEDI
-			jediOne = new JEDI(101, JoystickNumbers.JEDI_ONE, SERVER_ID, jediOnePort, this, this);
+			jediOne = new JEDI(JoystickNumbers.JEDI_ONE, SERVER_ID, jediOnePort, this, this);
 
 			// start the jedi controller
 			((JEDI)jediOne).start();
@@ -94,7 +94,7 @@ public class Console implements ButtonListenerInterface, ConnectionListenerInter
 		// initialize the firt JEDI
 		try{
 			// initialize the JEDI
-			jediOne = new JEDI(101, JoystickNumbers.JEDI_ONE, SERVER_ID, jediOnePort, this, this);
+			jediOne = new JEDI(JoystickNumbers.JEDI_ONE, SERVER_ID, jediOnePort, this, this);
 			
 			// start the jedi controller
 			((JEDI)jediOne).start();
@@ -114,7 +114,7 @@ public class Console implements ButtonListenerInterface, ConnectionListenerInter
 		// initialize the second JEDI
 		try{
 			// initialize the JEDI
-			jediTwo = new JEDI(102, JoystickNumbers.JEDI_TWO, SERVER_ID, jediTwoPort, this, this);
+			jediTwo = new JEDI(JoystickNumbers.JEDI_TWO, SERVER_ID, jediTwoPort, this, this);
 			
 			// start the jedi controller
 			((JEDI)jediTwo).start();

@@ -29,7 +29,7 @@ import data.FixedQueue;
 public class JEDI implements JEDI_api{
 
 	// jedi id
-	private int jediID;
+	private Integer jediID;
 	
 	// josyick number, 1 or 2
 	private JoystickNumbers joystickNumber;
@@ -77,10 +77,10 @@ public class JEDI implements JEDI_api{
 	 * @throws TooManyListenersException
 	 * @throws UnsupportedCommOperationException
 	 */
-	public JEDI(int jediID, JoystickNumbers joystickNumber, int serverID, String portName, ButtonListenerInterface buttonEventListener, ConnectionListenerInterface connectionEventLister) throws NoSuchPortException, PortInUseException, IOException, TooManyListenersException, UnsupportedCommOperationException{
+	public JEDI(JoystickNumbers joystickNumber, int serverID, String portName, ButtonListenerInterface buttonEventListener, ConnectionListenerInterface connectionEventLister) throws NoSuchPortException, PortInUseException, IOException, TooManyListenersException, UnsupportedCommOperationException{
 		
 		// id of the jedi to communicate to
-		this.jediID = jediID;
+		this.jediID = null;
 		
 		// joystick Number, either 1 or 2
 		this.joystickNumber = joystickNumber;
@@ -140,7 +140,7 @@ public class JEDI implements JEDI_api{
 	 * @return An integer with the JEDI ID
 	 */
 	@Override
-	public int getJediID() {
+	public Integer getJediID() {
 		return jediID;
 	}
 	
@@ -175,7 +175,7 @@ public class JEDI implements JEDI_api{
 	 * Sets the JEDI ID (BE VERY CAREFULL! It may leed to a complete lost of communications with the JEDI)
 	 * @param jediID New JEDI ID 
 	 */
-	public void setJediID(int jediID) {
+	public void setJediID(Integer jediID) {
 		this.jediID = jediID;
 	}
 	

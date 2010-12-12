@@ -155,13 +155,17 @@ public class SerialCommHandler implements CommHandler {
 				return;
 			}
 
-			if(reqPck.getOrig() != jedi.getJediID()){
-				System.out.println(jedi.getJediID() + ": SON DISTINTO' MAETRO'!!!!");
-				return;
-			} else {
+			if(jedi.getJediID() == null){
+				// set the ID of the jedi as the received one
+				jedi.setJediID(reqPck.getOrig());
+				
+				// set as connected
 				jedi.setJediTick(130);
 				jedi.setConnectionState(true);
 				fireConnectionStartedEvent();
+			} else {
+				// already bounded to another jedi
+				return;
 			}
 
 			DiscoverRespPacket respPck = new DiscoverRespPacket(jedi.getServerID(), reqPck.getOrig(), jedi.getJoystickNumberAsInt(), acc_method.ACC_METHOD_MEDIAN,(byte) 0xFF);
@@ -219,6 +223,7 @@ public class SerialCommHandler implements CommHandler {
 			
 			// if the tick reached zero, set the jedi as disconnected
 			if(jedi.getJediTick() == 0 && jedi.isConnected()){
+				jedi.setJediID(null);
 				jedi.setConnectionState(false);
 				fireConnectionEndedEvent();
 			}
