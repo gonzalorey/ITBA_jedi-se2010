@@ -13,7 +13,7 @@ import java.util.TimerTask;
 import api.JEDI_api;
 import api.JEDI_api.JoystickNumbers;
 import api.JEDIGame;
-import client.game.Board;
+import client.game.Spacecraft;
 import event.ButtonEvent;
 import event.ConnectionEvent;
 
@@ -200,7 +200,7 @@ public class Pong extends JEDIGame{
 	}
 
 	public static void setPause(boolean pause) {
-		Board.pause = pause;
+		Spacecraft.pause = pause;
 	}
 
 	public static boolean isPause() {

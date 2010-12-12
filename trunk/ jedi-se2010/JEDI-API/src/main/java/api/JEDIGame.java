@@ -18,6 +18,10 @@ public abstract class JEDIGame extends JPanel implements ButtonListenerInterface
 		this.jedi1 = jedi1;
 		this.jedi2 = jedi2;
 	}
+	
+	public JEDIGame(JEDI_api jedi1) {
+		this.jedi1 = jedi1;
+	}
 
 	public void run(GameCallbackInterface callback){
 		callback.onStart();
