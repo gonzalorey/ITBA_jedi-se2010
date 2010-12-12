@@ -8,7 +8,7 @@ import java.util.TimerTask;
 import javax.swing.ImageIcon;
 
 import api.JEDI_api;
-import client.game.Board;
+import client.game.Spacecraft;
 import data.Axis;
 
 public class Paddle {
@@ -47,7 +47,7 @@ public class Paddle {
 
 		@Override
 		public void run() {
-			if(!Pong.isPause() && !Board.isCalibration()){
+			if(!Pong.isPause() && !Spacecraft.isCalibration()){
 				Axis axis;
 
 				if(api == null || (axis = api.getAcceleration()) == null)

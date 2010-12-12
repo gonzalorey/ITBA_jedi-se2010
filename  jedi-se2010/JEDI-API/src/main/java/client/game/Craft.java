@@ -41,16 +41,18 @@ public class Craft {
         visible = true;
         x = 40;
         y = 60;
-        
-        timer = new Timer();
-        timer.scheduleAtFixedRate(new ScheduleTask(), 5, 5);
     }
 
+	public void start() {
+        timer = new Timer();
+        timer.scheduleAtFixedRate(new ScheduleTask(), 5, 5);
+	}
+    
     private class ScheduleTask extends TimerTask{
 
 		@Override
 		public void run() {
-			if(!Board.isPause() && !Board.isCalibration()){
+			if(!Spacecraft.isPause() && !Spacecraft.isCalibration()){
 				Axis axis = api.getAcceleration();
 //				Axis axis2 = api.getPosition();
 //				Axis axis2 = api.getVelocity();
@@ -137,4 +139,9 @@ public class Craft {
     		//DO SOMETHING
     	}
     }
+
+	public void cancelTimer() {
+		timer.cancel();
+	}
+
 }

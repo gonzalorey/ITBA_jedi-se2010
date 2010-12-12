@@ -252,7 +252,6 @@ public class Console implements ButtonListenerInterface, ConnectionListenerInter
 
 		@Override
 		public void onFinish() {
-			System.out.println("menu on finish");
 			gameFrame.remove(menu);
 			currentGame = ((Menu) menu).getSelectedGame();
 			gameFrame.add(currentGame);
