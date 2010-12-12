@@ -19,17 +19,13 @@ public class Paddle {
     private int height;
 	
 	private boolean visible;
-	
-	@SuppressWarnings("unused")
-	private final int BOARD_WIDTH = 390;
-	private final int BOARD_HEIGHT = 290;
-	
+		
     private JEDI_api api;
 	
     private Image image;
     private Timer timer;
     
-    private String paddle = "paddle.png";
+    private String paddle = "paddle_classic.png";
     
 	public Paddle(JEDI_api api, int x){
 		this.api = api;
@@ -44,7 +40,7 @@ public class Paddle {
         
         visible = true;
         
-        y = BOARD_HEIGHT/2 - height/2;
+        y = Pong.PONG_HEIGHT/2 - height/2;
         
         timer = new Timer();
         timer.scheduleAtFixedRate(new ScheduleTask(), 5, 5);
@@ -73,8 +69,8 @@ public class Paddle {
             y = 0;
         }
         
-        if (y >= (BOARD_HEIGHT-height))
-        	y = BOARD_HEIGHT-height;
+        if (y >= (Pong.PONG_HEIGHT-height))
+        	y = Pong.PONG_HEIGHT-height;
     }
 	
     public int getX() {
