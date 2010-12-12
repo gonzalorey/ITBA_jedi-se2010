@@ -1,8 +1,6 @@
 package comm;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -12,10 +10,10 @@ import java.util.List;
 
 import api.ButtonListenerInterface;
 import api.ConnectionListenerInterface;
+import api.JEDI_api;
 import api.impl.JEDI;
 import api.impl.JEDI.buttonName;
 import api.impl.JEDI.buttonState;
-import api.JEDI_api;
 import data.Axis;
 import data.Buttons;
 import data.FixedQueue;
@@ -36,22 +34,14 @@ public class SerialCommHandler implements CommHandler {
 	private OutputStream outputStream = null;
 	private FixedQueue<Axis> fixedQueue;
 	
-	private File file;
-	FileOutputStream fos;
-	
 	public SerialCommHandler(JEDI_api jedi, ButtonListenerInterface buttonEventListener, 
 			ConnectionListenerInterface connectionEventListener) throws FileNotFoundException{
-		
-		System.out.println(((JEDI) jedi).getJediID() + ": starting serial comm handler");
 		
 		// initialize the jedi
 		this.jedi = (JEDI)jedi;
 		
 		this.addButtonEventListener(buttonEventListener);
 		this.addConnectionEventListener(connectionEventListener);
-		
-		this.file = new File("test.bin");
-		this.fos = new FileOutputStream(this.file);
 	}
 	
 	public void setInputStream(InputStream inputStream){
@@ -111,11 +101,8 @@ public class SerialCommHandler implements CommHandler {
         if(inputStream.read(readBuffer) != length)
         	throw new IOException("Wrong data received");
      
-        fos.write(readBuffer);
-        
         switch(readBuffer[2]){
         	case 11:	// DISCOVER_REQUEST
-        		System.out.println(jedi.getJediID() + ": Discover request");
         		doDiscoverReq(readBuffer);
         		break;
         	case 12:	// DISCOVER_RESPONSE
@@ -146,9 +133,7 @@ public class SerialCommHandler implements CommHandler {
 
 	private void doDiscoverReq(byte[] readBuffer) {
 		try{
-			System.out.println(jedi.getJediID() + ": doing discover request...");
 			DiscoverReqPacket reqPck = DiscoverReqPacket.parseInform(readBuffer);
-			System.out.println(jedi.getJediID() + ": discover request package built");
 
 			if(reqPck == null){
 				System.out.println("Wrong type of package");
@@ -172,7 +157,6 @@ public class SerialCommHandler implements CommHandler {
 
 			try {
 				outputStream.write(respPck.serialize());
-				System.out.println(jedi.getJediID() + ": offered");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
