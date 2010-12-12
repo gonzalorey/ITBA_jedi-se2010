@@ -4,11 +4,21 @@ import data.Buttons;
 import data.Axis;
 
 public interface JEDI_api {
-	
+
 	public static enum JoystickNumbers{JEDI_ONE, JEDI_TWO};
 	
+	/**
+	 * Gets the number of the current JEDI, setted as JEDI_ONE or JEDI_TWO
+	 * 
+	 * @return An enum with the number of the JEDI
+	 */
 	JoystickNumbers getJediNumber();
 	
+	/**
+	 * Gets the ID of the JEDI
+	 * 
+	 * @return An integer with the id of the current JEDI
+	 */
 	Integer getJediID();
 	
 	/** 

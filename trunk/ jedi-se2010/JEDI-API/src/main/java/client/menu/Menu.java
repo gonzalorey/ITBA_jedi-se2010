@@ -1,17 +1,13 @@
 package client.menu;
 
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
 
 import pong.Pong;
-
-import api.JEDI_api;
 import api.JEDIGame;
+import api.JEDI_api;
 import event.ButtonEvent;
 import event.ConnectionEvent;
 
