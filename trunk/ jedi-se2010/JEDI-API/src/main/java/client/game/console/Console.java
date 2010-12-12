@@ -66,7 +66,7 @@ public class Console implements ButtonListenerInterface, ConnectionListenerInter
 		JFrame gameFrame = new JFrame("Juego");
 		
 		game = new Pong(jediOne, jediTwo);
-
+		
 		gameFrame.add(game);
 
 		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -135,6 +135,12 @@ public class Console implements ButtonListenerInterface, ConnectionListenerInter
         JFrame gameFrame = new JFrame("Juego");
 
         game = new Pong(jediOne, jediTwo);
+        
+        if(jediOne instanceof FakeJEDI)
+        	((FakeJEDI) jediOne).forceConnectionEvent(true);
+        
+        if(jediTwo instanceof FakeJEDI)
+        	((FakeJEDI) jediTwo).forceConnectionEvent(true);
         
         gameFrame.add(game);
         

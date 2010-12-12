@@ -98,7 +98,7 @@ public class Pong extends JPanel implements ButtonListenerInterface, ConnectionL
 			 g2d.drawImage(paddle_right.getImage(), paddle_right.getX(), paddle_right.getY(), this);
 			 			 
 			 g2d.setColor(Color.WHITE);
-	         g2d.drawString(score1+":"+score2, 30, 30);
+	         g2d.drawString(score1+":"+score2, Pong.PONG_WIDTH/2-10, 20);
 		}
         
         Toolkit.getDefaultToolkit().sync();

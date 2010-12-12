@@ -251,4 +251,10 @@ public class FakeJEDI implements JEDI_api{
 		return number;
 	}
 
+	public void forceConnectionEvent(boolean state){
+		if(state)
+			fireConnectionStartedEvent();
+		else
+			fireConnectionEndedEvent();
+	}
 }
