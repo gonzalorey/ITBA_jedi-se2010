@@ -146,7 +146,6 @@ public class Console implements ButtonListenerInterface, ConnectionListenerInter
 		menu = new Menu(jediOne, jediTwo);
 		currentPanel = menu;
 		
-		System.out.println("adding menu panel to frame");
 		gameFrame.add(menu);
 
 		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -167,7 +166,6 @@ public class Console implements ButtonListenerInterface, ConnectionListenerInter
 
 		jediFrame.add((JPanel)dashboard);
 
-		System.out.println("run");
 		menu.run(new MenuCallback());       
 	}
 
@@ -207,7 +205,6 @@ public class Console implements ButtonListenerInterface, ConnectionListenerInter
 
 	@Override
 	public void connectionStarted(ConnectionEvent e) {
-		System.out.println("tu vieja");
 		if(currentPanel != null)
 			currentPanel.connectionStarted(e);
 		if(dashboard != null)
@@ -231,7 +228,6 @@ public class Console implements ButtonListenerInterface, ConnectionListenerInter
 
 		@Override
 		public void onFinish() {
-			System.out.println("game on finish");
 			currentPanel.removeAll();
 			gameFrame.remove(currentPanel);
 			menu = new Menu(jediOne, jediTwo);

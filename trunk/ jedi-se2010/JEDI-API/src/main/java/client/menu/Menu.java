@@ -17,6 +17,7 @@ import data.Axis;
 
 import api.JEDIGame;
 import api.JEDI_api;
+import api.impl.FakeJEDI;
 import event.ButtonEvent;
 import event.ConnectionEvent;
 
@@ -76,8 +77,11 @@ public class Menu extends JEDIGame {
 				return;
 
 			double shock = Math.abs(axis.getX())+Math.abs(axis.getY())+Math.abs(axis.getZ());
+			
+			if(jedi1 instanceof FakeJEDI && shock >= 30)
+				shock = 100;
 
-			if(shock>=30){
+			if(shock>=100){
 				switch(selectedGameIndex){
 					case 0:
 						selectedGame = new Spacecraft(jedi1);
@@ -142,7 +146,7 @@ public class Menu extends JEDIGame {
 
 	@Override
 	public void buttonReleased(ButtonEvent e) {
-		if(e.getPressedButton()==e.JEDI_B)
+		if(e.getPressedButton()==ButtonEvent.JEDI_B)
 			selectedGameIndex = (selectedGameIndex+1)%gameCount;
 		else
 			selectedGameIndex = (selectedGameIndex-1)<0?gameCount-1:selectedGameIndex-1;

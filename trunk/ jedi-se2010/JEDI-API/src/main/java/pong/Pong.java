@@ -57,7 +57,6 @@ public class Pong extends JEDIGame{
 
 	@Override
 	public void start(){
-		System.out.println("pong run");
 		paddle_left.run();
 		paddle_right.run();
 
