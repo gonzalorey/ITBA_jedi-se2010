@@ -32,7 +32,6 @@ public class JEDI implements JEDI_api{
 	private int jediID;
 	
 	// josyick number, 1 or 2
-	public static enum JoystickNumbers{JEDI_ONE, JEDI_TWO};
 	private JoystickNumbers joystickNumber;
 	
 	// server id 
@@ -400,5 +399,10 @@ public class JEDI implements JEDI_api{
 	public Axis getRotation() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public JoystickNumbers getJediNumber() {
+		return joystickNumber;
 	}
 }

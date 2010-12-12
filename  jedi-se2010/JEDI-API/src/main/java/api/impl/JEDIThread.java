@@ -9,7 +9,7 @@ import java.util.TooManyListenersException;
 
 import api.ButtonListenerInterface;
 import api.ConnectionListenerInterface;
-import api.impl.JEDI.JoystickNumbers;
+import api.JEDI_api.JoystickNumbers;
 
 public class JEDIThread implements Runnable {
 

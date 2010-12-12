@@ -16,9 +16,9 @@ import pong.Pong;
 import api.ButtonListenerInterface;
 import api.ConnectionListenerInterface;
 import api.JEDI_api;
+import api.JEDI_api.JoystickNumbers;
 import api.impl.FakeJEDI;
 import api.impl.JEDI;
-import api.impl.JEDI.JoystickNumbers;
 import client.game.fakejedi.Dashboard;
 
 public class Console implements ButtonListenerInterface, ConnectionListenerInterface {
@@ -55,7 +55,7 @@ public class Console implements ButtonListenerInterface, ConnectionListenerInter
 		}
 		
 		// add it to the dashboad
-		dashboard = new Dashboard(jediOne);
+		dashboard = new Dashboard(jediOne, jediOne);
 		
 		// initialize the second JEDI
 		//jediTwo = new FakeJEDI(this, this);
@@ -70,7 +70,6 @@ public class Console implements ButtonListenerInterface, ConnectionListenerInter
 		gameFrame.add(game);
 
 		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		gameFrame.setSize(400, 300);
 		gameFrame.setLocationRelativeTo(null);
 		gameFrame.setResizable(false);
 		gameFrame.setVisible(true);
@@ -79,9 +78,8 @@ public class Console implements ButtonListenerInterface, ConnectionListenerInter
 		JFrame jediFrame = new JFrame("JEDI");
 
 		jediFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		jediFrame.setSize(400, 300);
 		jediFrame.setLocationRelativeTo(null);
-		jediFrame.setResizable(false);
+		jediFrame.setResizable(true);
 		jediFrame.setVisible(true);
 		jediFrame.setLocation(0, 0);
 
@@ -150,7 +148,7 @@ public class Console implements ButtonListenerInterface, ConnectionListenerInter
 		JFrame jediFrame = new JFrame("JEDI");
 
         jediFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        jediFrame.setSize(400, 300);
+        jediFrame.setSize(400, 600);
         jediFrame.setLocationRelativeTo(null);
         jediFrame.setResizable(false);
         jediFrame.setVisible(true);

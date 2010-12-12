@@ -5,6 +5,10 @@ import data.Axis;
 
 public interface JEDI_api {
 	
+	public static enum JoystickNumbers{JEDI_ONE, JEDI_TWO};
+	
+	JoystickNumbers getJediNumber();
+	
 	int getJediID();
 	
 	/** 
