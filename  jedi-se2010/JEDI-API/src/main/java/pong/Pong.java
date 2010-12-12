@@ -29,7 +29,7 @@ public class Pong extends JPanel implements ButtonListenerInterface, ConnectionL
     private int B_WIDTH;
     private int B_HEIGHT;
     
-    private static boolean pause = false;
+    private static boolean pause = true;
     private static boolean ingame = true;
     Ball ball;
     
@@ -49,10 +49,10 @@ public class Pong extends JPanel implements ButtonListenerInterface, ConnectionL
 
         setSize(PONG_WIDTH, PONG_HEIGHT);
 
-        ball = new Ball(PONG_WIDTH/2, PONG_HEIGHT/2, 2, 2);
+        ball = new Ball(PONG_WIDTH/2, PONG_HEIGHT/2, .5,.5);
         
-        paddle_left = new Paddle(api, 10);
-        paddle_right= new Paddle(api2, PONG_WIDTH - 10 - 10);
+        paddle_left = new Paddle(api, 30);
+        paddle_right= new Paddle(api2, PONG_WIDTH - 10 - 30);
                 
         timer = new Timer();
         timer.scheduleAtFixedRate(new ScheduleTask(), 5, 5);
@@ -92,15 +92,13 @@ public class Pong extends JPanel implements ButtonListenerInterface, ConnectionL
 			
 			 Graphics2D g2d = (Graphics2D)g;
 			 
-			 if (ball.isVisible())
-	                g2d.drawImage(ball.getImage(), ball.getX(), ball.getY(),
-	                              this);
+	         g2d.drawImage(ball.getImage(), ball.getX(), ball.getY(), this);
 			 
 			 g2d.drawImage(paddle_left.getImage(), paddle_left.getX(), paddle_left.getY(), this);
 			 g2d.drawImage(paddle_right.getImage(), paddle_right.getX(), paddle_right.getY(), this);
 			 			 
 			 g2d.setColor(Color.WHITE);
-	            g2d.drawString(score1+":"+score2, 5, 15);
+	         g2d.drawString(score1+":"+score2, 30, 30);
 		}
         
         Toolkit.getDefaultToolkit().sync();
@@ -119,6 +117,7 @@ public class Pong extends JPanel implements ButtonListenerInterface, ConnectionL
 			        paddle_left.move();
 			        paddle_right.move();
 			        checkCollisions();
+			        
 				}
 		        repaint();
 			}
@@ -131,16 +130,19 @@ public class Pong extends JPanel implements ButtonListenerInterface, ConnectionL
     	Rectangle p2 = paddle_right.getBounds();
     	
     	if(b.intersects(p1) || b.intersects(p2))
+    	{
     		ball.inverse_horizontal_speed();
+    		ball.increaseVelocity();
+    	}
     	
     	if(ball.getX()<=0){
-    		ball.x = 200;
+    		ball.restorePosition();
     		score2++;
     	}	
     			
     	if(ball.getX()>=PONG_WIDTH-10){
     		score1++;
-    		ball.x = 200;
+    		ball.restorePosition();
     	}	
     }
     

@@ -6,19 +6,16 @@ import java.awt.Rectangle;
 import javax.swing.ImageIcon;
 
 public class Ball {
-	public int x, y;
+	public double x, y;
 	public int width, height;
-	public int speed_x, speed_y;
+	public double speed_x, speed_y;
 	
 	boolean visible;
-	
-	private final int BOARD_WIDTH = 390;
-	private final int BOARD_HEIGHT = 290;
-	
-    private String ball = "ball.png";
+		
+    private String ball = "ball_classic.png";
     private Image image;
 	
-	public Ball(int x, int y, int xp, int yp){
+	public Ball(double x, double y, double xp, double yp){
 		this.x = x;
 		this.y = y;
 		this.speed_x = xp;
@@ -32,11 +29,11 @@ public class Ball {
 	}
 	
     public int getX() {
-        return x;
+        return (int)x;
     }
 
     public int getY() {
-        return y;
+        return (int)y;
     }
     
     public void inverse_horizontal_speed(){
@@ -48,15 +45,11 @@ public class Ball {
     }
     
     public Rectangle getBounds() {
-        return new Rectangle(x, y, width, height);
+        return new Rectangle((int)x, (int)y, width, height);
     }
     
     public boolean isVisible() {
         return visible;
-    }
-
-    public void setVisible(Boolean visible) {
-        this.visible = visible;
     }
     
     public void move(){
@@ -69,16 +62,33 @@ public class Ball {
     		inverse_vertial_speed();
     	}	
     	
-    	if(y>BOARD_HEIGHT-height){
-    		y = BOARD_HEIGHT-height-Math.abs(y-(BOARD_HEIGHT-height));
+    	if(y>Pong.PONG_HEIGHT-height){
+    		y = Pong.PONG_HEIGHT-height-Math.abs(y-(Pong.PONG_HEIGHT-height));
     		inverse_vertial_speed();
     	}
     	
-        if (x > BOARD_WIDTH || x < 0)
+        if (x > Pong.PONG_WIDTH || x < 0)
             visible = false;
     }
 
 	public Image getImage() {
 		return image;
 	}
+
+	public void increaseVelocity() {
+		if(speed_x>0)
+			speed_x+=.1;
+		else
+			speed_x-=.1;
+	}
+
+	public void restorePosition() {
+		this.x = Pong.PONG_WIDTH/2;
+		this.y = Pong.PONG_HEIGHT/2;
+		
+		this.speed_x = .5;
+		this.speed_y = .5;
+	}
+	
+	
 }
