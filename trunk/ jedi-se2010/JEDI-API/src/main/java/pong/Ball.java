@@ -10,6 +10,9 @@ public class Ball {
 	public int width, height;
 	public double speed_x, speed_y;
 	
+	public double initial_speed_x;
+	public double initial_speed_y;
+	
 	boolean visible;
 		
     private String ball = "ball_classic.png";
@@ -18,8 +21,13 @@ public class Ball {
 	public Ball(double x, double y, double xp, double yp){
 		this.x = x;
 		this.y = y;
+		
 		this.speed_x = xp;
 		this.speed_y = yp;
+		
+		this.initial_speed_x = xp;
+		this.initial_speed_y = yp;
+		
 		visible = true;
 		
         ImageIcon ii = new ImageIcon(this.getClass().getResource(ball));
@@ -77,17 +85,17 @@ public class Ball {
 
 	public void increaseVelocity() {
 		if(speed_x>0)
-			speed_x+=.1;
+			speed_x+=.2;
 		else
-			speed_x-=.1;
+			speed_x-=.2;
 	}
 
 	public void restorePosition() {
-		this.x = Pong.PONG_WIDTH/2;
-		this.y = Pong.PONG_HEIGHT/2;
+		this.x = Pong.PONG_HEIGHT/2;
+		this.y = Pong.PONG_WIDTH/2;
 		
-		this.speed_x = .5;
-		this.speed_y = .5;
+		this.speed_x = initial_speed_x;
+		this.speed_y = initial_speed_y;
 	}
 	
 	
