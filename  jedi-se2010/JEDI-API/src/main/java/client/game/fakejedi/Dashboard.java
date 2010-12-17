@@ -15,6 +15,7 @@ import javax.swing.JTextArea;
 
 import api.ButtonListenerInterface;
 import api.ConnectionListenerInterface;
+import api.JEDIGame;
 import api.JEDI_api;
 import api.JEDI_api.JoystickNumbers;
 import api.impl.FakeJEDI;
@@ -169,8 +170,11 @@ public class Dashboard extends JPanel implements ActionListener, ButtonListenerI
 		jediPanel1 = buildJEDIPanel(api1);
 		jediPanel2 = buildJEDIPanel(api2);
 		
-		jediPanel2.getJPanel().setBounds(jediPanel1.getJPanel().getX(), jediPanel1.getJPanel().getHeight(), 
-				jediPanel1.getJPanel().getWidth(), jediPanel1.getJPanel().getHeight());
+		jediPanel1.getJPanel().setBounds(0, 300, 400, 300);
+		jediPanel2.getJPanel().setBounds(400, 300, 400, 300);
+		
+//		jediPanel2.getJPanel().setBounds(jediPanel1.getJPanel().getX(), jediPanel1.getJPanel().getHeight(), 
+//				jediPanel1.getJPanel().getWidth(), jediPanel1.getJPanel().getHeight());
 				
 		this.add(jediPanel1.getJPanel());
 		this.add(jediPanel2.getJPanel());
@@ -308,6 +312,11 @@ public class Dashboard extends JPanel implements ActionListener, ButtonListenerI
 		public JComponent getComponent(String name){
 			return componentMap.get(name);
 		}
+	}
+
+	public void addGame(JEDIGame game) {
+		game.setBounds(200, 0, 400, 300);
+		this.add(game);
 	} 
 }
 

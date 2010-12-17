@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.lang.reflect.ReflectPermission;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -35,6 +36,8 @@ public class Menu extends JEDIGame {
 	int selectedGameIndex;
 	int gameCount = 2;
 
+	
+	
 	private String arrow = "arrow.png";
 	private Image image;
 	private int arrowX;
@@ -49,9 +52,13 @@ public class Menu extends JEDIGame {
 
 	private Timer timer;
 
+	private JEDIGame[] games;
+	
 	public Menu(JEDI_api jedi1, JEDI_api jedi2) {
 		super(jedi1, jedi2);
 
+		this.games = games;
+		
 		setFocusable(true);
 		setBackground(Color.BLACK);
 		setDoubleBuffered(true);

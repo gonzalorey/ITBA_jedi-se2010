@@ -70,7 +70,6 @@ public class FakeJEDI implements JEDI_api{
 	    public void keyPressed(KeyEvent e) {
 //	    	if (!isFakeEvents())
 //	    		return;
-	    	
 	    	int key = e.getKeyCode();
 
 	        if (key == a) {

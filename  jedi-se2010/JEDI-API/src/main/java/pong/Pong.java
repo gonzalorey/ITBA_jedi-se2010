@@ -37,6 +37,11 @@ public class Pong extends JEDIGame{
 	private int score1 = 0;
 	private int score2 = 0;
 
+	private boolean gameRunning;
+	private int winner = 0;
+	
+	private final int WINNING_POINTS = 2;
+	
 	public Pong(JEDI_api jedi1, JEDI_api jedi2) 	{
 		super(jedi1, jedi2);
 
@@ -74,7 +79,6 @@ public class Pong extends JEDIGame{
 		super.paint(g);
 
 		if (ingame) {
-
 			if(isPause()){
 				String msg = "PAUSE";
 				Font small = new Font("Helvetica", Font.BOLD, 18);
@@ -111,19 +115,23 @@ public class Pong extends JEDIGame{
 		g.dispose();
 	}
 
+	private boolean isGameRunning() {
+		return gameRunning;
+	}
+
 	private boolean isCalibration() {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
+	
 	private class ScheduleTask extends TimerTask{
 		public void run() {
-			if(score1 >=3 || score2 >= 3){
-				paddle_left.cancelTimer();
-				paddle_right.cancelTimer();
-				timer.cancel();
+			if(victoryConditionsReached()){
+				winner = determineWinner();
+				gameRunning= false;
+				cancelTimer();
 				getCallback().onFinish();
-			}	
+			}
 			
 			if(!isPause()){
 				ball.move();
@@ -134,6 +142,26 @@ public class Pong extends JEDIGame{
 			}
 			repaint();
 		}
+	}
+
+	private void cancelTimer() {
+		paddle_left.cancelTimer();
+		paddle_right.cancelTimer();
+		timer.cancel();
+	}
+	
+	public int determineWinner() {
+		if(score1 == WINNING_POINTS)
+			return 1;
+		else
+			return 2;
+	}
+
+	public boolean victoryConditionsReached() {
+		if(score1== WINNING_POINTS || score2 == WINNING_POINTS)
+			return true;
+		
+		return false;
 	}
 
 	public void checkCollisions() {

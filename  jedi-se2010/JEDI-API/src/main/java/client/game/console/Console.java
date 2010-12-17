@@ -43,8 +43,13 @@ public class Console implements ButtonListenerInterface, ConnectionListenerInter
 	private JEDIGame currentPanel;
 	
 	private JFrame gameFrame;
-	private JFrame jediFrame;
+	private JFrame masterFrame;
 
+	private final int GAME_X = 0;
+	private final int GAME_Y = 600;
+	private final int GAME_HEIGHT = 300;
+	private final int GAME_WIDTH = 400;
+	
 	public Console(String jediOnePort) throws NoSuchPortException, 
 	PortInUseException, IOException, TooManyListenersException, UnsupportedCommOperationException {
 
@@ -141,30 +146,21 @@ public class Console implements ButtonListenerInterface, ConnectionListenerInter
 		// add them to the dashboad
 		dashboard = new Dashboard(jediOne, jediTwo);
 
-		gameFrame = new JFrame("Juego");
-
 		menu = new Menu(jediOne, jediTwo);
 		currentPanel = menu;
 		
-		gameFrame.add(menu);
+		dashboard.addGame(menu);
 
-		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		gameFrame.setSize(400, 300);
-		gameFrame.setLocationRelativeTo(null);
-		gameFrame.setResizable(false);
-		gameFrame.setVisible(true);
-		gameFrame.setLocation(500, 0);
+		masterFrame = new JFrame("JEDI");
 
-		jediFrame = new JFrame("JEDI");
+		masterFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		masterFrame.setSize(800, 600);
+		masterFrame.setLocationRelativeTo(null);
+		masterFrame.setResizable(false);
+		masterFrame.setVisible(true);
+		masterFrame.setLocation(250, 0);
 
-		jediFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		jediFrame.setSize(400, 600);
-		jediFrame.setLocationRelativeTo(null);
-		jediFrame.setResizable(false);
-		jediFrame.setVisible(true);
-		jediFrame.setLocation(0, 0);
-
-		jediFrame.add((JPanel)dashboard);
+		masterFrame.add((JPanel)dashboard);
 
 		menu.run(new MenuCallback());       
 	}
@@ -228,12 +224,11 @@ public class Console implements ButtonListenerInterface, ConnectionListenerInter
 
 		@Override
 		public void onFinish() {
-			currentPanel.removeAll();
-			gameFrame.remove(currentPanel);
+			masterFrame.remove(currentGame);
 			menu = new Menu(jediOne, jediTwo);
-			gameFrame.add(menu);
-			menu.repaint();
+			dashboard.addGame(menu);
 			currentPanel = menu;
+			masterFrame.repaint();
 			
 			menu.run(new MenuCallback());
 		}
@@ -248,11 +243,11 @@ public class Console implements ButtonListenerInterface, ConnectionListenerInter
 
 		@Override
 		public void onFinish() {
-			gameFrame.remove(menu);
+			masterFrame.remove(currentPanel);
 			currentGame = ((Menu) menu).getSelectedGame();
-			gameFrame.add(currentGame);
+			dashboard.addGame(currentGame);
 			currentPanel = currentGame;
-			gameFrame.repaint();
+			masterFrame.repaint();
 			
 			currentGame.run(new GameCallback());
 			
