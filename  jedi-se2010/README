@@ -1,0 +1,8 @@
+El directorio JEDI contiene el proyecto en C propio del control JEDI.
+
+El directorio JEDI-API contiene el proyecto en java de la consola. Este necesita una libreria de comunicacion serie para funcionar. Para bajar e instalar esta libreria son los siguientes links:
+
+http://rxtx.qbang.org/wiki/index.php/Download
+http://rxtx.qbang.org/wiki/index.php/Installation
+
+Tener en cuenta en la inicializacion de Console el puerto serie al que esta conectado el JEDI.
