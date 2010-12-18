@@ -38,6 +38,7 @@ public class Pong extends JEDIGame{
 	private int score2 = 0;
 
 	private boolean gameRunning;
+	@SuppressWarnings("unused")
 	private int winner = 0;
 	
 	private final int WINNING_POINTS = 2;
@@ -115,6 +116,7 @@ public class Pong extends JEDIGame{
 		g.dispose();
 	}
 
+	@SuppressWarnings("unused")
 	private boolean isGameRunning() {
 		return gameRunning;
 	}

@@ -5,20 +5,17 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.lang.reflect.ReflectPermission;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.swing.ImageIcon;
 
 import pong.Pong;
-
-import client.game.Spacecraft;
-import data.Axis;
-
 import api.JEDIGame;
 import api.JEDI_api;
 import api.impl.FakeJEDI;
+import client.game.Spacecraft;
+import data.Axis;
 import event.ButtonEvent;
 import event.ConnectionEvent;
 
@@ -51,13 +48,9 @@ public class Menu extends JEDIGame {
 	private final int GAME_ARROW_Y = GAME_TITLE_Y - 10;
 
 	private Timer timer;
-
-	private JEDIGame[] games;
 	
 	public Menu(JEDI_api jedi1, JEDI_api jedi2) {
 		super(jedi1, jedi2);
-
-		this.games = games;
 		
 		setFocusable(true);
 		setBackground(Color.BLACK);
