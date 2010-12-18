@@ -42,14 +42,8 @@ public class Console implements ButtonListenerInterface, ConnectionListenerInter
 
 	private JEDIGame currentPanel;
 	
-	private JFrame gameFrame;
 	private JFrame masterFrame;
 
-	private final int GAME_X = 0;
-	private final int GAME_Y = 600;
-	private final int GAME_HEIGHT = 300;
-	private final int GAME_WIDTH = 400;
-	
 	public Console(String jediOnePort) throws NoSuchPortException, 
 	PortInUseException, IOException, TooManyListenersException, UnsupportedCommOperationException {
 
