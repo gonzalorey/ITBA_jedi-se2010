@@ -1,0 +1,1 @@
+Consola de juegos controlada por el movimiento de dos mandos (tipo wii) inalámbricos. Deberá contar con al menos dos juegos.
